@@ -6,6 +6,7 @@
 
 #include "mm.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 /*
  *  MEMPHY_mv_csr - move MEMPHY cursor
@@ -160,7 +161,11 @@ int MEMPHY_dump(struct memphy_struct * mp)
     /*TODO dump memphy contnt mp->storage 
      *     for tracing the memory content
      */
-
+     ///////Check Later/////////
+    FILE* ptr;
+    ptr = fopen("dump.txt","w");
+    for(int i=0;i<mp->maxsz;++i) fputc(mp->storage[i],ptr);
+    fclose(ptr);
     return 0;
 }
 
