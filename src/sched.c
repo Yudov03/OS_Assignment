@@ -85,10 +85,16 @@ void add_proc(struct pcb_t * proc) {
 }
 #else
 struct pcb_t * get_proc(void) {
-	struct pcb_t * proc = NULL;
 	/*TODO: get a process from [ready_queue].
 	 * Remember to use lock to protect the queue.
 	 * */
+	pthread_mutex_lock(&queue_lock);
+	struct pcb_t *proc = NULL;
+	if (!empty(&ready_queue)) {
+		proc = ready_queue;
+		ready_queue = ready_queue->next;
+	}
+	pthread_mutex_unlock(&queue_lock);
 	return proc;
 }
 
