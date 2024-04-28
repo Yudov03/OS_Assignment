@@ -91,8 +91,8 @@ struct pcb_t * get_proc(void) {
 	pthread_mutex_lock(&queue_lock);
 	struct pcb_t *proc = NULL;
 	if (!empty(&ready_queue)) {
-		proc = ready_queue;
-		ready_queue = ready_queue->next;
+		proc = dequeue(&ready_queue);
+		// ready_queue = ready_queue->next;
 	}
 	pthread_mutex_unlock(&queue_lock);
 	return proc;
